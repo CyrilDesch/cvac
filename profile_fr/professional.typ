@@ -26,7 +26,6 @@
   location: [Darmstadt, Allemagne],
   description: list(
     [Refonte complète de l'application de gestion de tests utilisée pour certifier que les projets livrés par Innoflair respectent les exigences de clients soumis à des contraintes réglementaires strictes.],
-    [Développement d'un MVP de modélisation de procédures pour l'industrie spatiale.],
   ),
   tags: ("Ruby on Rails", "Docker", "Anglais"),
 )
