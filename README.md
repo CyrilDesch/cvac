@@ -1,31 +1,56 @@
-# Typst CV Template
+# cvac — CV as Code
 
-A simple CV template for [typst.app](https://typst.app).
+A personal CV built with [Typst](https://typst.app), based on the [brilliant-CV](https://typst.app/universe/package/brilliant-cv) package. Content is fully separated from layout: all personal data lives in `profile_*/metadata.toml` and section modules, while the library handles rendering.
 
-## How To Use
+## Structure
 
-### Quick Start
+```
+cv.typ                  # Entry point — wires profile + library together
+lib/                    # Fork/extension of brilliant-CV rendering logic
+  cv.typ                # CV layout engine
+  letter.typ            # Cover letter layout engine
+  lib.typ               # Public API (re-exports cv + letter + styles)
+  utils/
+    styles.typ          # Colors, fonts, spacing constants
+    injection.typ       # ATS keyword injection helpers
+profile_fr/             # French profile (one folder = one complete config)
+  metadata.toml         # Personal info, layout overrides, injected keywords
+  professional.typ      # Work experience entries
+  education.typ         # Education entries
+  skills.typ            # Skills section
+assets/
+  avatar.png            # Profile photo (optional)
+fonts/                  # Bundled Montserrat weights
+mise.toml               # Task runner (compile tasks)
+```
 
-Create a project on [typst.app](https://typst.app), copy paste everything in https://github.com/skyzh/chicv/blob/master/template/cv.typ. All done!
+## Getting started
 
-### Customize your CV
+**Prerequisites:** [Typst](https://typst.app) (≥ 0.13) and [mise](https://mise.jdx.dev) (optional, for task shortcuts).
 
-To change the text size, you can uncomment the lines in `cv.typ` and set to your choice. (Recommended text size for CV is from 10pt to 12pt)
+**Compile the CV:**
 
-You can also change the page margin in `cv.typ` to fit in more contents in a single page. The margin default is set to `(x: 0.9cm, y: 1.3cm)`.
+```bash
+# Using mise
+mise run compile-fr
 
-Don't forget to include `#chiline()` every time you open a new section, this line acts as a perfect split.
+# Or directly with typst
+typst compile --font-path fonts/ --pdf-standard ua-1 cv.typ --input profile=fr cv.pdf
+```
 
-For basic typst syntax, check this template as a reference, it's super easy to understand and use!
+The output is `cv.pdf`.
 
-For advanced topics, please refer to [official reference](https://typst.app/docs/reference/) by typst.
+## Adding a new profile
 
-## Showcases
+1. Create a `profile_<name>/` folder.
+2. Add a `metadata.toml` (copy `profile_fr/metadata.toml` as a starting point).
+3. Add your section modules (`professional.typ`, `education.typ`, `skills.typ`, …).
+4. Compile with `--input profile=<name>`.
 
-### Sample CV
+## Customization
 
-![Preview](cv.png)
+All layout knobs (colors, fonts, paper size, date column width, header alignment, logo display…) are controlled via `[layout]` in `metadata.toml`. See the [brilliant-CV documentation](https://typst.app/universe/package/brilliant-cv) for the full schema reference.
 
-### Chi's CV
+## Based on
 
-[cv.pdf](https://skyzh.github.io/files/cv.pdf)
+[brilliant-CV](https://typst.app/universe/package/brilliant-cv) — a Typst CV template for the job market.
