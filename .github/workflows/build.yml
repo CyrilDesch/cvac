@@ -20,12 +20,6 @@ jobs:
       - name: Compile CV (fr)
         run: typst compile --font-path fonts/ --pdf-standard ua-1 cv.typ --input profile=fr cv.pdf
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: cv-fr
-          path: cv.pdf
-          retention-days: 30
-
       - name: Release PDF on main
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2

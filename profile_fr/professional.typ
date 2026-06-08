@@ -8,7 +8,7 @@
 #cv-entry(
   title: [Ingénieur Logiciel Stage - Industrie Blockchain & BigData],
   society: [Ledger],
-  date: [Mars 2026 -- Présent],
+  date: [Mars 2026 -- Août 2026],
   location: [Paris & Montpellier, France],
   description: list(
     [Optimisation de la couche proxy JsonRPC en streaming : capacité utilisateur ×16 et empreinte mémoire −40%, améliorant la fiabilité de l'infrastructure.],
@@ -25,7 +25,7 @@
   date: [Mars 2025 -- Août 2025],
   location: [Darmstadt, Allemagne],
   description: list(
-    [Refonte complète de l'application de gestion de tests.],
+    [Refonte complète de l'application de gestion de tests utilisée pour certifier que les projets livrés par Innoflair respectent les exigences de clients soumis à des contraintes réglementaires strictes.],
     [Développement d'un MVP de modélisation de procédures pour l'industrie spatiale.],
   ),
   tags: ("Ruby on Rails", "Docker", "Anglais"),
