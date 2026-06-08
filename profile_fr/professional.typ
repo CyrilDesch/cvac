@@ -42,5 +42,5 @@
     [*SimplX* : Conception du service de paiement et d'abonnement sur une plateforme de vente de véhicules.],
     [*Pluricité* : Conception et livraison du jeu en ligne Top Ten Pro avec multijoueur temps réel via WebSockets.],
   ),
-  tags: ("ReactJS", "React Native", "Next.js", "NestJS", "JavaScript / TypeScript", "Python", "Scala", "LangChain", "OLTP"),
+  tags: ("React", "React Native", "Next.js", "NestJS", "JavaScript / TypeScript", "Python", "Scala", "LangChain", "OLTP"),
 )

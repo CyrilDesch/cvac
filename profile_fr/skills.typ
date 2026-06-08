@@ -32,8 +32,8 @@
 
 #cv-skill(
   type: [Front-end],
-  info: [#stag([ReactJS]) #stag([React Native]) #stag([Next.js])],
-  ats: "Front-end : ReactJS, React Native, Next.js",
+  info: [#stag([React]) #stag([React Native]) #stag([Next.js])],
+  ats: "Front-end : React, React Native, Next.js",
 )
 
 #v(1pt)
@@ -72,6 +72,6 @@
 
 #cv-skill(
   type: [Langues],
-  info: [#stag([Français (natif)]) #stag([Anglais avancé (certifié B2)])],
-  ats: "Langues : Français natif, Anglais avancé B2",
+  info: [#stag([Français (natif)]) #stag([Anglais courant (B2)])],
+  ats: "Langues : Français natif, Anglais courant B2",
 )

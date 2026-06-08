@@ -12,7 +12,7 @@
   description: list(
     [Spécialisation orientée développement logiciel et conduite de projet.],
   ),
-  tags: ("NextJs", "ReactJs", "Java", "DevOps", "Machine Learning", "Gestion de projet", "Gestion d'entreprise"),
+  tags: ("Next.js", "React", "Java", "DevOps", "Machine Learning", "Gestion de projet", "Gestion d'entreprise"),
 )
 
 #cv-entry(
