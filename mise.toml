@@ -1,3 +1,6 @@
+[tools]
+typst = "latest"
+
 [tasks.compile-fr]
 description = "Compile CV (French profile)"
 run = "typst compile --font-path fonts/ --pdf-standard ua-1 cv.typ --input profile=fr cv.pdf"

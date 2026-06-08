@@ -3,8 +3,6 @@ name: Build CV
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build:
@@ -15,13 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: typst-community/setup-typst@v4
+      - uses: jdx/mise-action@v2
 
-      - name: Compile CV (fr)
-        run: typst compile --font-path fonts/ --pdf-standard ua-1 cv.typ --input profile=fr cv.pdf
+      - name: Compile CV
+        run: mise run compile
 
-      - name: Release PDF on main
-        if: github.ref == 'refs/heads/main'
+      - name: Release PDF
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
