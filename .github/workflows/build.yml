@@ -9,19 +9,125 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: jdx/mise-action@v2
 
       - name: Compile CV
         run: mise run compile
 
-      - name: Release PDF
+      - name: Compute next version
+        id: version
+        run: |
+          LATEST=$(git tag --list 'v*' | sort -V | tail -1)
+          if [ -z "$LATEST" ]; then
+            NEXT="v1"
+          else
+            NUM="${LATEST#v}"
+            NEXT="v$((NUM + 1))"
+          fi
+          echo "tag=$NEXT" >> $GITHUB_OUTPUT
+
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest
-          name: Latest CV
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: CV ${{ steps.version.outputs.tag }}
           files: cv.pdf
           make_latest: true
+
+      - name: Prepare GitHub Pages
+        run: |
+          mkdir -p _site
+          cp cv.pdf _site/cv.pdf
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="fr">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Cyril Deschamps — CV</title>
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { background: #e8e8e8; font-family: system-ui, sans-serif; }
+              #toolbar {
+                position: sticky; top: 0; z-index: 10;
+                background: #1a1a1a; color: white;
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 10px 20px; height: 48px;
+              }
+              #toolbar span { font-size: 15px; font-weight: 500; }
+              #viewer {
+                display: flex; flex-direction: column; align-items: center;
+                padding: 24px 16px; gap: 16px;
+              }
+              canvas { box-shadow: 0 4px 16px rgba(0,0,0,0.2); background: white; max-width: 100%; }
+              #loading { padding: 40px; color: #555; font-size: 14px; }
+              a.download-btn {
+                background: #2563eb; color: white; padding: 8px 16px;
+                border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500;
+              }
+              a.download-btn:hover { background: #1d4ed8; }
+            </style>
+          </head>
+          <body>
+            <div id="toolbar">
+              <span>Cyril Deschamps — CV</span>
+              <a class="download-btn" href="cv.pdf" download>Download PDF</a>
+            </div>
+            <div id="viewer"><p id="loading">Loading...</p></div>
+            <script type="module">
+              import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
+              pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+
+              const viewer = document.getElementById('viewer');
+              const dpr = window.devicePixelRatio || 1;
+              const maxWidth = Math.min(900, window.innerWidth - 32);
+
+              const pdf = await pdfjsLib.getDocument('cv.pdf').promise;
+              viewer.innerHTML = '';
+
+              for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const baseViewport = page.getViewport({ scale: 1 });
+                const scale = (maxWidth / baseViewport.width) * dpr;
+                const viewport = page.getViewport({ scale });
+
+                const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = `${viewport.width / dpr}px`;
+                canvas.style.height = `${viewport.height / dpr}px`;
+                viewer.appendChild(canvas);
+
+                await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+              }
+            </script>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy-pages:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
