@@ -70,6 +70,11 @@ jobs:
                 padding: 24px 16px; gap: 16px;
               }
               canvas { box-shadow: 0 4px 16px rgba(0,0,0,0.2); background: white; max-width: 100%; }
+              .actions { display: flex; align-items: center; gap: 12px; }
+              #lang {
+                background: #333; color: white; border: 1px solid #555;
+                border-radius: 6px; padding: 6px 8px; font-size: 13px;
+              }
               #loading { padding: 40px; color: #555; font-size: 14px; }
               a.download-btn {
                 background: #2563eb; color: white; padding: 8px 16px;
@@ -81,7 +86,13 @@ jobs:
           <body>
             <div id="toolbar">
               <span>Cyril Deschamps — CV</span>
-              <a class="download-btn" href="cv.pdf" download>Download PDF</a>
+              <div class="actions">
+                <select id="lang" aria-label="Language">
+                  <option value="cv.pdf">FR</option>
+                  <option value="cv-en.pdf">EN</option>
+                </select>
+                <a id="download" class="download-btn" href="cv.pdf" download>Download PDF</a>
+              </div>
             </div>
             <div id="viewer"><p id="loading">Loading...</p></div>
             <script type="module">
@@ -89,27 +100,40 @@ jobs:
               pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
 
               const viewer = document.getElementById('viewer');
+              const langSelect = document.getElementById('lang');
+              const download = document.getElementById('download');
               const dpr = window.devicePixelRatio || 1;
               const maxWidth = Math.min(900, window.innerWidth - 32);
+              let token = 0;
 
-              const pdf = await pdfjsLib.getDocument('cv.pdf').promise;
-              viewer.innerHTML = '';
+              async function show(file) {
+                const current = ++token;
+                download.href = file;
+                viewer.innerHTML = '<p id="loading">Loading...</p>';
+                const pdf = await pdfjsLib.getDocument(file).promise;
+                const canvases = [];
 
-              for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const baseViewport = page.getViewport({ scale: 1 });
-                const scale = (maxWidth / baseViewport.width) * dpr;
-                const viewport = page.getViewport({ scale });
+                for (let i = 1; i <= pdf.numPages; i++) {
+                  const page = await pdf.getPage(i);
+                  const baseViewport = page.getViewport({ scale: 1 });
+                  const scale = (maxWidth / baseViewport.width) * dpr;
+                  const viewport = page.getViewport({ scale });
 
-                const canvas = document.createElement('canvas');
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                canvas.style.width = `${viewport.width / dpr}px`;
-                canvas.style.height = `${viewport.height / dpr}px`;
-                viewer.appendChild(canvas);
+                  const canvas = document.createElement('canvas');
+                  canvas.width = viewport.width;
+                  canvas.height = viewport.height;
+                  canvas.style.width = `${viewport.width / dpr}px`;
+                  canvas.style.height = `${viewport.height / dpr}px`;
+                  await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+                  canvases.push(canvas);
+                }
 
-                await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+                if (current !== token) return;
+                viewer.replaceChildren(...canvases);
               }
+
+              langSelect.addEventListener('change', () => show(langSelect.value));
+              show(langSelect.value);
             </script>
           </body>
           </html>
