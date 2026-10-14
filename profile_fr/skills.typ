@@ -23,17 +23,9 @@
 #v(1pt)
 
 #cv-skill(
-  type: [Back-end],
-  info: [#stag([Tapir]) #stag([Quarkus]) #stag([NestJS]) #stag([REST API])],
-  ats: "Back-end : Tapir, Quarkus, NestJS, REST API",
-)
-
-#v(1pt)
-
-#cv-skill(
-  type: [Front-end],
-  info: [#stag([React]) #stag([React Native]) #stag([Next.js])],
-  ats: "Front-end : React, React Native, Next.js",
+  type: [Tech List],
+  info: [#stag([Cats]) #stag([Kyo]) #stag([React Native]) #stag([Next.js])],
+  ats: "Tech List: Cats, Kyo, React Native, Next.js",
 )
 
 #v(1pt)
@@ -56,8 +48,8 @@
 
 #cv-skill(
   type: [IA Agentique],
-  info: [#stag([Langchain]) #stag([Langfuse]) #stag([Cursor]) #stag([Claude Code])],
-  ats: "IA Agentique : Langchain, Langfuse, Cursor, Claude Code",
+  info: [#stag([Langchain]) #stag([Langfuse])],
+  ats: "IA Agentique : Langchain, Langfuse",
 )
 
 #v(1pt)

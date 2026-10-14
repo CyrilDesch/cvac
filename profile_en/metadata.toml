@@ -1,0 +1,55 @@
+#:schema https://raw.githubusercontent.com/yunanwg/brilliant-CV/main/metadata.toml.schema.json
+
+# Profile: English.
+lang_code = "en"
+header_quote = "Software Engineer · Backend & Agentic AI"
+cv_footer = "References available upon request"
+letter_footer = "Cover letter"
+
+[layout]
+    awesome_color = "#D4521E"
+    before_section_skip = "1pt"
+    before_entry_skip = "1pt"
+    before_entry_description_skip = "-4pt"
+    paper_size = "a4"
+    date_width = "4cm"
+
+    [layout.fonts]
+        regular_fonts = ["Montserrat"]
+        header_font = "Montserrat"
+
+    [layout.header]
+        header_align = "center"
+        display_profile_photo = false
+        profile_photo_radius = "50%"
+        info_font_size = "10pt"
+        info_leading = "7.5pt"
+
+    [layout.entry]
+        display_entry_society_first = false
+        display_logo = false
+
+    [layout.section]
+        title_highlight = "none"
+
+    [layout.footer]
+        display_page_counter = false
+        display_footer = true
+        display_name_footer = false
+
+
+[inject]
+    injected_keywords_list = ["Software Engineer", "Java", "Scala", "React", "DevOps"]
+
+[personal]
+    first_name = "Cyril"
+    last_name = "Deschamps"
+
+    [personal.info]
+        age = "24"
+        location = "Mobile"
+        phone ="+33 6 42 90 88 40"
+        email = "contact@cyrildeschamps.fr"
+        homepage = "cyrildeschamps.fr"
+        github = "CyrilDesch"
+        linkedin = "cyril-deschamps-dev"

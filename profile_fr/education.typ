@@ -20,8 +20,4 @@
   society: [Université Claude Bernard Lyon 1],
   date: [2020 -- 2022],
   location: [Lyon, France],
-  description: list(
-    [Formation généraliste en informatique.],
-  ),
-  tags: ("Full-stack", "Gestion de projet", "Gestion d'entreprise"),
 )

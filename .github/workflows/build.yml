@@ -39,13 +39,15 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.tag }}
           name: CV ${{ steps.version.outputs.tag }}
-          files: cv.pdf
+          files: |
+            cv.pdf
+            cv-en.pdf
           make_latest: true
 
       - name: Prepare GitHub Pages
         run: |
           mkdir -p _site
-          cp cv.pdf _site/cv.pdf
+          cp cv.pdf cv-en.pdf _site/
           cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
           <html lang="fr">

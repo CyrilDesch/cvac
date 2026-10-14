@@ -6,6 +6,16 @@
 #cv-section("Expériences Professionnelles")
 
 #cv-entry(
+  title: [Ingénieur Logiciel CDI - Industrie Blockchain],
+  society: [Ledger],
+  date: [Sept. 2026 -- Aujourd'hui],
+  location: [Paris & Montpellier, France],
+  description: list(
+    [Développement d'un moteur de tests différentiels continus qui compare des APIs et alerte sur les écarts, utilisé comme étape de vérification d'une boucle de harness automatisée convergeant vers la parité complète.],
+  ),
+)
+
+#cv-entry(
   title: [Ingénieur Logiciel Stage - Industrie Blockchain & BigData],
   society: [Ledger],
   date: [Mars 2026 -- Août 2026],
@@ -14,7 +24,6 @@
     [Optimisation de la couche proxy JsonRPC en streaming : capacité utilisateur ×16 et empreinte mémoire −40%, améliorant la fiabilité de l'infrastructure.],
     [Ajout du support WebSocket au proxy, ouvrant la voie à de nouvelles évolutions produit.],
     [Développement d'un moteur de validation de la cohérence des données OLAP.],
-    [Contribution à la gestion de connaissances structurées pour les projets d'ingénierie avec approche agentique.],
   ),
   tags: ("Scala", "Kubernetes", "Datadog", "OLAP", "LLM Agents", "Anglais"),
 )
@@ -38,7 +47,6 @@
   description: list(
     [*Cyril Deschamps* : Développement d'un outil de brainstorming structuré, avec des agents IA via LangChain appliquant des méthodes créatives telles que SCAMPER et IBM Design Thinking, pour transformer une idée brute en spécification d'un projet viable et commercialisable.],
     [*SimplX* : Conception et livraison d'une application cross-platform de défis d'entreprise déployée sur Android et iOS via MDM pour plus de 100 employés, intégrant authentification, messagerie et suivi d'activité.],
-    [*SimplX* : Conception du service de paiement et d'abonnement sur une plateforme de vente de véhicules.],
     [*Pluricité* : Conception et livraison du jeu en ligne Top Ten Pro avec multijoueur temps réel via WebSockets.],
   ),
   tags: ("React", "React Native", "Next.js", "NestJS", "JavaScript / TypeScript", "Python", "Scala", "LangChain", "OLTP"),

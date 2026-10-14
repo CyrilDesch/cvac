@@ -5,6 +5,10 @@ typst = "latest"
 description = "Compile CV (French profile)"
 run = "typst compile --font-path fonts/ --pdf-standard ua-1 cv.typ --input profile=fr cv.pdf"
 
+[tasks.compile-en]
+description = "Compile CV (English profile)"
+run = "typst compile --font-path fonts/ --pdf-standard ua-1 cv.typ --input profile=en cv-en.pdf"
+
 [tasks.compile]
 description = "Compile both CV profiles"
-depends = ["compile-fr"]
+depends = ["compile-fr", "compile-en"]
